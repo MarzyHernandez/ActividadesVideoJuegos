@@ -1,6 +1,9 @@
 from turtle import *
-from random import randrange
+from random import randrange, choice
 from freegames import square, vector
+
+colors = ['blue', 'green', 'purple', 'yellow', 'orange']  # Colores 
+disponibles para la serpiente y la comida
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
@@ -31,17 +34,23 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+        
+
     else:
         snake.pop(0)
+
 
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, snake_color)
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, food_color)
     update()
     ontimer(move, 100)
+snake_color = choice(colors)
+available_colors = [c for c in colors if c != snake_color]
+food_color = choice(available_colors) if available_colors else 'black'
 
 setup(420, 420, 370, 0)
 hideturtle()
