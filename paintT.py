@@ -99,6 +99,13 @@ onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+onkey(lambda: color('orange'), 'O')
+onkey(lambda: color('purple'), 'P')
+onkey(lambda: color('yellow'), 'Y')
+onkey(lambda: color('cyan'), 'C')
+onkey(lambda: color('magenta'), 'M')
+onkey(lambda: color('pink'), 'I')
+onkey(lambda: color('sienna'), 'S')
 
 # Configuramos una serie de funciones lambda para almacenar diferentes 
 formas cuando se presionen ciertas teclas
@@ -110,3 +117,4 @@ onkey(lambda: store('shape', triangle), 't')
 
 # Finalizamos la configuración y ejecución del programa
 done()
+
