@@ -36,9 +36,16 @@ def square(start, end):
     end_fill()
 
 
-def circle(start, end):
+def circulo(start, end):
     """Draw circle from start to end."""
-    pass  # TODO
+    up()
+    radius=abs(start - end)
+    goto(start.x, start.y - radius)
+    down()
+    fillcolor('royal blue')
+    begin_fill()
+    circle(radius)
+    end_fill()
 
 
 def rectangle(start, end):
@@ -111,7 +118,7 @@ onkey(lambda: color('sienna'), 'S')
 formas cuando se presionen ciertas teclas
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
-onkey(lambda: store('shape', circle), 'c')
+onkey(lambda: store('shape', circulo), 'c')
 onkey(lambda: store('shape', rectangle), 'r')
 onkey(lambda: store('shape', triangle), 't')
 
