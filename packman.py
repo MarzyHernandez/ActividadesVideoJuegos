@@ -36,6 +36,10 @@ tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
+def distance(p1, p2):
+    "Return the Manhattan distance between two points."
+    return abs(p1.x - p2.x) + abs(p1.y - p2.y)
+
 def square(x, y):
     "Draw square using path at (x, y)."
     path.up()
@@ -111,7 +115,8 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    for point, course in ghosts:
+    for ghost in ghosts:
+        point, course = ghost
         if valid(point + course):
             point.move(course)
         else:
@@ -121,9 +126,21 @@ def move():
                 vector(0, 5),
                 vector(0, -5),
             ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+            best_option = None
+            min_distance = float('inf')
+
+            for option in options:
+                if valid(point + option):
+                    target = pacman
+                    dist = abs(target - (point + option))
+
+                    if dist < min_distance:
+                        min_distance = dist
+                        best_option = option
+
+            if best_option is not None:
+                course.x = best_option.x
+                course.y = best_option.y
 
         up()
         goto(point.x + 10, point.y + 10)
@@ -131,11 +148,14 @@ def move():
 
     update()
 
-    for point, course in ghosts:
+    for ghost in ghosts:
+        point, _ = ghost
         if abs(pacman - point) < 20:
             return
 
     ontimer(move, 100)
+
+
 
 def change(x, y):
     "Change pacman aim if valid."
@@ -157,3 +177,4 @@ onkey(lambda: change(0, -5), 'Down')
 world()
 move()
 done()
+
