@@ -63,9 +63,10 @@ def draw():
 
     if mark is not None and hide[mark]:
         x, y = xy(mark)
+        digit = tiles[mark]
+        color(get_color(digit))
         up()
         goto(x + 25, y)
-        color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'),align='center')
 
     up()
@@ -83,6 +84,11 @@ font=('Arial', 24, 'bold'))
 
     update()
     ontimer(draw, 100)
+
+def get_color(digit):
+    "Return the color for the given digit."
+    colors = ['red','blue','green','yellow','orange','purple','brown','black','cyan','magenta','sienna','olive','khaki','silver','indigo','orchid','crimson']
+    return colors[digit % len(colors)]
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
