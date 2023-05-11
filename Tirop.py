@@ -11,10 +11,8 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 12  # Ajustar la velocidad horizontal (más 
-rápido)
-        speed.y = (y + 200) / 12  # Ajustar la velocidad vertical (más 
-rápido)
+        speed.x = (x + 200) / 12  # Ajustar la velocidad horizontal (más rápido)
+        speed.y = (y + 200) / 12  # Ajustar la velocidad vertical (más rápido)
 
 def inside(xy):
     "Return True if xy within screen."
@@ -42,8 +40,14 @@ def move():
         targets.append(target)
 
     for target in targets:
-        target.x -= 2  # Ajustar la velocidad horizontal de los balones 
-(más rápido)
+        target.x -= 2  # Ajustar la velocidad horizontal de los balones (más rápido)
+
+        if not inside(target):
+            targets.remove(target)
+            y = randrange(-150, 150)
+            target.x = 200
+            target.y = y
+            targets.append(target)
 
     if inside(ball):
         speed.y -= 0.35
@@ -57,10 +61,6 @@ def move():
             targets.append(target)
 
     draw()
-
-    for target in targets:
-        if not inside(target):
-            return
 
     ontimer(move, 50)
 
