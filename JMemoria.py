@@ -2,15 +2,16 @@ from random import *
 from turtle import *
 from freegames import path
 
-car = path('car.gif')
-tiles = list(range(32)) * 2
-state = {'mark': None}
-hide = [True] * 64
-tap_count = 0
-game_completed = False
+car = path('car.gif')  # Ruta de la imagen del auto
+tiles = list(range(32)) * 2  # Lista de números de los pares de fichas
+state = {'mark': None}  # Estado actual del juego
+hide = [True] * 64  # Lista que indica si las fichas están ocultas o no
+tap_count = 0  # Contador de toques en el juego
+game_completed = False  # Indicador de si el juego ha sido completado o no
 
 def square(x, y):
-    "Draw white square with black outline at (x, y)."
+    "Dibujar un cuadrado blanco con un borde negro en las coordenadas (x, 
+y)."
     up()
     goto(x, y)
     down()
@@ -22,15 +23,15 @@ def square(x, y):
     end_fill()
 
 def index(x, y):
-    "Convert (x, y) coordinates to tiles index."
+    "Convertir las coordenadas (x, y) a un índice de ficha."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
 def xy(count):
-    "Convert tiles count to (x, y) coordinates."
+    "Convertir un índice de ficha a coordenadas (x, y)."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
 def tap(x, y):
-    "Update mark and hidden tiles based on tap."
+    "Actualizar la ficha marcada y las fichas ocultas según el toque."
     global tap_count, game_completed
     tap_count += 1
 
@@ -48,7 +49,7 @@ def tap(x, y):
         game_completed = True
 
 def draw():
-    "Draw image and tiles."
+    "Dibujar la imagen y las fichas."
     clear()
     goto(0, 0)
     shape(car)
@@ -67,7 +68,7 @@ def draw():
         color(get_color(digit))
         up()
         goto(x + 25, y)
-        write(tiles[mark], font=('Arial', 30, 'normal'),align='center')
+        write(tiles[mark], font=('Arial', 30, 'normal'), align='center')
 
     up()
     goto(0, -200)
@@ -86,15 +87,18 @@ font=('Arial', 24, 'bold'))
     ontimer(draw, 100)
 
 def get_color(digit):
-    "Return the color for the given digit."
-    colors = ['red','blue','green','yellow','orange','purple','brown','black','cyan','magenta','sienna','olive','khaki','silver','indigo','orchid','crimson']
+    "Devolver el color correspondiente al dígito dado."
+    colors = 
+['red','blue','green','yellow','orange','purple','brown','black','cyan','magenta','sienna','olive','khaki','silver','indigo','orchid','crimson']
     return colors[digit % len(colors)]
 
-shuffle(tiles)
-setup(420, 420, 370, 0)
-addshape(car)
-hideturtle()
-tracer(False)
-onscreenclick(tap)
-draw()
-done()
+shuffle(tiles)  # Mezclar aleatoriamente las fichas
+setup(420, 420, 370, 0)  # Configurar la ventana de Turtle
+addshape(car)  # Agregar la forma del auto al sistema de formas de Turtle
+hideturtle()  # Ocultar la tortuga
+tracer(False)  # Desactivar la animación de dibujo
+onscreenclick(tap)  # Asignar la función de respuesta al evento de clic en 
+la pantalla
+draw()  # Iniciar el juego
+done()  # Finalizar la ejecución del programa Turtle
+
