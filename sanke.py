@@ -2,8 +2,7 @@ from turtle import *
 from random import randrange, choice
 from freegames import square, vector
 
-colors = ['blue', 'green', 'purple', 'yellow', 'orange']  # Colores 
-disponibles para la serpiente y la comida
+colors = ['blue', 'green', 'purple', 'yellow', 'orange']  # Colores disponibles para la serpiente y la comida
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
@@ -48,6 +47,17 @@ def move():
     square(food.x, food.y, 9, food_color)
     update()
     ontimer(move, 100)
+
+def move_food():
+    "Move food randomly one step"
+    global food
+    while True:
+        direction = vector(randrange(-1, 2, 2)*10, randrange(-1, 2, -2)*10)
+        new_food = food + direction
+        if inside(new_food):
+            food = new_food
+            break
+
 snake_color = choice(colors)
 available_colors = [c for c in colors if c != snake_color]
 food_color = choice(available_colors) if available_colors else 'black'
